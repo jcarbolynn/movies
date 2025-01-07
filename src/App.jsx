@@ -1,6 +1,7 @@
 import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
+import MovieCard from "./components/movie_card"
+// if you just export functionName you have to have function name in {}
+// if you export default functionName you can export without {}
 import './App.css'
 
 function App() {
@@ -13,14 +14,21 @@ function App() {
     things.push(i);
   }
 
+  const movieNumber = 1;
+  // conditional render, if condition met show this otherwise show the other
+  // {movieNumber ===1 ? (first outcome) : (second outcome)}
+
   return (
     <>
-      {things.map(oneThing => {
-        return (
-          <Text text={`${oneThing}: HI`}/> 
-        )
-      })
-      }
+      {movieNumber === 1 ? (
+      <MovieCard movie={{title: "MOVIE NAME", release_date: "2025"}}/>
+      ) : (
+      <MovieCard movie={{title: "SECOND NAME", release_date: "2025"}}/> 
+      ) }
+
+      {movieNumber === 1 && 
+      <MovieCard movie={{title: "MOVIE NAME", release_date: "2025"}}/> }
+      
     </>
   )
 }
