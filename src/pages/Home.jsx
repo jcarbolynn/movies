@@ -35,6 +35,7 @@ function Home() {
 
             <div className="movies-grid">
                 {movies.map((movie) => (
+                    // only renders movie list that starts with searchQuery
                     movie.title.toLowerCase().startsWith(searchQuery) &&
                     (<MovieCard movie={movie} key={movie.id}/>)
                 ))}
