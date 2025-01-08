@@ -11,8 +11,10 @@ function Home() {
         {id: crypto.randomUUID(), title: "Harry Potter 3", release_date: "2002"}
     ]
 
-    const handleSearch = () => {
+    const handleSearch = (e) => {
+        e.preventDefault() // prevents default behavior of reloading page
         alert(searchQuery)
+        setSearchQuery("-----")
     }
 
     return (
