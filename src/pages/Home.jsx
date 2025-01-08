@@ -8,13 +8,15 @@ function Home() {
     const movies = [
         {id: crypto.randomUUID(), title: "Harry Potter 1", release_date: "1998"},
         {id: crypto.randomUUID(), title: "Harry Potter 2", release_date: "2000"},
-        {id: crypto.randomUUID(), title: "Harry Potter 3", release_date: "2002"}
+        {id: crypto.randomUUID(), title: "Harry Potter 3", release_date: "2002"},
+        {id: crypto.randomUUID(), title: "UP", release_date: "2002"},
+        {id: crypto.randomUUID(), title: "Walle", release_date: "2002"}
     ]
 
     const handleSearch = (e) => {
         e.preventDefault() // prevents default behavior of reloading page
         alert(searchQuery)
-        setSearchQuery("-----")
+        setSearchQuery("")
     }
 
     return (
@@ -32,7 +34,10 @@ function Home() {
             </form>
 
             <div className="movies-grid">
-                {movies.map(movie => <MovieCard movie={movie} key={movie.id}/>)}
+                {movies.map((movie) => (
+                    movie.title.toLowerCase().startsWith(searchQuery) &&
+                    (<MovieCard movie={movie} key={movie.id}/>)
+                ))}
             </div>
         </div>
     )
