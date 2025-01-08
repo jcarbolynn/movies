@@ -29,6 +29,7 @@ function Home() {
                     value={searchQuery}
                     onChange={(e) => setSearchQuery(e.target.value)}
                     // when you set value to a state, have to set on change to
+                    // when state changes by calling on change (setsearchquery function), whole component is rerendered
                 />
                 <button type="submit" className="search-button">Search</button>
             </form>
