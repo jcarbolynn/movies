@@ -1,19 +1,47 @@
-import { useState } from "react"
+import { useState, useEffect } from "react"
 import MovieCard from "../components/movie_card"
 import "../css/Home.css"
+import { getPopularMovies, searchMovies } from "../services/api";
 
 
 function Home() {
     // when state changes, component will re render
     // name of state, function to change state, default value of state
     const [searchQuery, setSearchQuery] = useState("");
-    const movies = [
-        {id: crypto.randomUUID(), title: "Harry Potter 1", release_date: "1998"},
-        {id: crypto.randomUUID(), title: "Harry Potter 2", release_date: "2000"},
-        {id: crypto.randomUUID(), title: "Harry Potter 3", release_date: "2002"},
-        {id: crypto.randomUUID(), title: "UP", release_date: "2002"},
-        {id: crypto.randomUUID(), title: "Walle", release_date: "2002"}
-    ]
+    // useEffect so we control when something is called
+    // ex we dont want getpopularmovies to be called every time the component renders
+    // only want it called once at the beginning (popular movies list isnt changing)
+    const [movies, setMovies] = useState([]);
+    // movies is a state, any time movies list is updated it will rerender the component
+    // common to have 2 variables
+    // one to store the "loading state"
+    // one to store potential errors
+    const [error, setError] = useState(null);
+    const [loading, setLoading] = useState(true);
+
+    // give use effect the function you want called anytime the array changes
+    // whatever is in the dependency array will be re checked after each render
+    // if it has changed since last render, we will run useEffect function
+    // if dependency array is empty, it will only be run once (when component is rendered)
+    // when state changes occurr, this useEffect will NOT run because nothing has changed in deendency array
+    useEffect(() => {
+        // common when you want to call an api to fetch data
+        const loadPopularMovies = async () => {
+            try {
+                const popularMovies = await getPopularMovies()
+                setMovies(popularMovies)  // using useState function
+            } catch (error) {
+                console.log(error)
+                setError("Failed to load movies...")
+            }
+            finally {
+                setLoading(false) // no longer loading whether data was retrieved successfully or not
+            }
+        }
+
+        loadPopularMovies()
+        // call api and loads movies
+    }, [])
 
     const handleSearch = (e) => {
         e.preventDefault() // prevents default behavior of reloading page
