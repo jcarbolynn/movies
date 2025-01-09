@@ -2,7 +2,7 @@ import { useState } from 'react'
 import MovieCard from "./components/movie_card"
 // if you just export functionName you have to have function name in {}
 // if you export default functionName you can export without {}
-import './App.css'
+import './css/App.css'
 import Home from "./pages/Home"
 import Favorite from "./pages/Favorites"
 import {Routes, Route} from "react-router-dom"
