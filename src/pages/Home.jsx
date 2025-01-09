@@ -1,5 +1,7 @@
+import { useState } from "react"
 import MovieCard from "../components/movie_card"
-import {useState} from "react"
+import "../css/Home.css"
+
 
 function Home() {
     // when state changes, component will re render
