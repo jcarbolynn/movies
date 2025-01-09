@@ -4,20 +4,21 @@ import MovieCard from "./components/movie_card"
 // if you export default functionName you can export without {}
 import './App.css'
 import Home from "./pages/Home"
+import Favorite from "./pages/Favorites"
+import {Routes, Route} from "react-router-dom"
 
 function App() {
   // components returns jsx code (which looks like html)
   // jsx can only have one parent div (ex cant return two divs on same level)
   // const [count, setCount] = useState(0)
 
-  const movieNumber = 1;
-  // conditional render, if condition met show this otherwise show the other
-  // {movieNumber ===1 ? (first outcome) : (second outcome)}
-
   return (
-    <>
-      <Home />
-    </>
+    <main className='maaon-content'>
+      <Routes>
+        <Route path="/" element={<Home />} />
+        <Route path="/favorites" element={< Favorite />} />
+      </Routes>
+    </main>
   )
 }
 

@@ -7,4 +7,9 @@ function Favorite() {
     )
 }
 
+// npm install react-router-dom
+// adds to package.json and in node-modules
+// need to wrap react components with something that gives ability to route
+// (go to main.jsx)
+
 export default Favorite
