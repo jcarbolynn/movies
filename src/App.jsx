@@ -6,6 +6,7 @@ import './App.css'
 import Home from "./pages/Home"
 import Favorite from "./pages/Favorites"
 import {Routes, Route} from "react-router-dom"
+import NavBar from "./components/navbar"
 
 function App() {
   // components returns jsx code (which looks like html)
@@ -13,12 +14,16 @@ function App() {
   // const [count, setCount] = useState(0)
 
   return (
-    <main className='maaon-content'>
-      <Routes>
-        <Route path="/" element={<Home />} />
-        <Route path="/favorites" element={< Favorite />} />
-      </Routes>
-    </main>
+    <div>
+      <NavBar />
+      <main className='maaon-content'>
+        <Routes>
+          <Route path="/" element={<Home />} />
+          <Route path="/favorites" element={< Favorite />} />
+        </Routes>
+      </main>
+    </div>
+
   )
 }
 
