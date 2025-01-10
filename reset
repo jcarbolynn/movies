@@ -1,0 +1,80 @@
+[33mcommit ff20014dbe7ff12d1e408d4d89d42c872d11b847[m[33m ([m[1;36mHEAD[m[33m -> [m[1;32mhome_page[m[33m, [m[1;31morigin/home_page[m[33m)[m
+Author: jcarbolynn <nda108252@gmail.com>
+Date:   Fri Jan 10 17:40:35 2025 -0500
+
+    testing
+
+[1mdiff --git a/src/pages/Home.jsx b/src/pages/Home.jsx[m
+[1mindex a282483..bcb4634 100644[m
+[1m--- a/src/pages/Home.jsx[m
+[1m+++ b/src/pages/Home.jsx[m
+[36m@@ -1,48 +1,24 @@[m
+[31m-import MovieCard from "../components/movie_card"[m
+[31m-import {useState} from "react"[m
+[32m+[m[32m// javascript functions to call api[m[41m [m
+[32m+[m[32m// good practice to have one file with all api calls (easy access)[m[41m [m
+ [m
+[31m-function Home() {[m
+[31m-    // when state changes, component will re render[m
+[31m-    // name of state, function to change state, default value of state[m
+[31m-    const [searchQuery, setSearchQuery] = useState("");[m
+[31m-    const movies = [[m
+[31m-        {id: crypto.randomUUID(), title: "Harry Potter 1", release_date: "1998"},[m
+[31m-        {id: crypto.randomUUID(), title: "Harry Potter 2", release_date: "2000"},[m
+[31m-        {id: crypto.randomUUID(), title: "Harry Potter 3", release_date: "2002"},[m
+[31m-        {id: crypto.randomUUID(), title: "UP", release_date: "2002"},[m
+[31m-        {id: crypto.randomUUID(), title: "Walle", release_date: "2002"}[m
+[31m-    ][m
+[32m+[m[32mconst API_KEY = "API KEY"[m
+[32m+[m[32mconst BASE_URL = "https://api.themoviedb.org/3"[m
+ [m
+[31m-    const handleSearch = (e) => {[m
+[31m-        e.preventDefault() // prevents default behavior of reloading page[m
+[31m-        alert(searchQuery)[m
+[31m-        setSearchQuery("")[m
+[31m-    }[m
+[32m+[m[32m// use api to search movies and display popular movies[m
+ [m
+[31m-    return ([m
+[31m-        <div className="home">[m
+[31m-            <form onSubmit={handleSearch} className="search-form">[m
+[31m-                <input[m
+[31m-                    type="text"[m
+[31m-                    placeholder="Search for..."[m
+[31m-                    className="search-input"[m
+[31m-                    value={searchQuery}[m
+[31m-                    onChange={(e) => setSearchQuery(e.target.value)}[m
+[31m-                    // when you set value to a state, have to set on change to[m
+[31m-                    // when state changes by calling on change (setsearchquery function), whole component is rerendered[m
+[31m-                />[m
+[31m-                <button type="submit" className="search-button">Search</button>[m
+[31m-            </form>[m
+[31m-[m
+[31m-            <div className="movies-grid">[m
+[31m-                {movies.map((movie) => ([m
+[31m-                    // only renders movie list that starts with searchQuery[m
+[31m-                    movie.title.toLowerCase().startsWith(searchQuery) &&[m
+[31m-                    (<MovieCard movie={movie} key={movie.id}/>)[m
+[31m-                ))}[m
+[31m-            </div>[m
+[31m-        </div>[m
+[31m-    )[m
+[32m+[m[32m// asynch means it will take a second to get result[m
+[32m+[m[32m// code written here, call function from component, wait until get result, display result[m
+[32m+[m[32mexport const getPopularMovies = async () => {[m
+[32m+[m[32m    const response = await fetch(`${BASE_URL}/movie/popular?api_key=${API_KEY}`);[m
+[32m+[m[32m    const data = await response.json()[m
+[32m+[m[32m    return data.results[m
+ }[m
+ [m
+[31m-export default Home[m
+\ No newline at end of file[m
+[32m+[m
+[32m+[m[32mexport const searchMovies = async (query) => {[m
+[32m+[m[32m    const response = await fetch([m
+[32m+[m[32m        `${BASE_URL}/search/movie?api_key=${API_KEY}&query=${encodeURIComponent(query)}`[m
+[32m+[m[32m    );[m
+[32m+[m[32m    const data = await response.json()[m
+[32m+[m[32m    return data.results[m
+[32m+[m[32m}[m
+\ No newline at end of file[m
