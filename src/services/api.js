@@ -1,7 +1,7 @@
 // javascript functions to call api 
 // good practice to have one file with all api calls (easy access) 
 
-const API_KEY = "MY KEY"
+const API_KEY = "API KEY"
 const BASE_URL = "https://api.themoviedb.org/3"
 
 // use api to search movies and display popular movies

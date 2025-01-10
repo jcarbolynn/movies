@@ -43,9 +43,24 @@ function Home() {
         // call api and loads movies
     }, [])
 
-    const handleSearch = (e) => {
-        e.preventDefault() // prevents default behavior of reloading page
-        alert(searchQuery)
+    const handleSearch = async (e) => {
+        e.preventDefault(); // prevents default behavior of reloading page
+        if (!searchQuery.trim()) return // removes leading and trailing spaces
+        if(loading) return //won't let us search while searching for something else
+
+        setLoading(true)
+
+        try {
+            const searchResults = await searchMovies(searchQuery) // await needs async
+            setMovies(searchResults)
+            setError(null)
+        } catch (error) {
+            console.log(error)
+            setError("Failed to search movies...")
+        } finally {
+            setLoading(false)
+        }
+
         setSearchQuery("")
     }
 
@@ -64,14 +79,21 @@ function Home() {
                 <button type="submit" className="search-button">Search</button>
             </form>
 
-            <div className="movies-grid">
-                {movies.map(
-                    (movie) => (
-                        (
-                            <MovieCard movie={movie} key={movie.id}/>
-                        )
-                ))}
-            </div>
+            {error && <div className="error-message">{error}</div>}
+
+            {loading ? (<div className="loading">Loading...</div>) :
+                (
+                    <div className="movies-grid">
+                        {movies.map(
+                            (movie) => (
+                                (
+                                    <MovieCard movie={movie} key={movie.id}/>
+                                )
+                        ))}
+                    </div>
+                )
+            }
+
         </div>
     )
 }

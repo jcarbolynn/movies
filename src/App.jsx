@@ -17,7 +17,7 @@ function App() {
   return (
     <div>
       <NavBar />
-      <main className='maaon-content'>
+      <main className='main-content'>
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/favorites" element={< Favorite />} />
