@@ -1,48 +1,24 @@
-import MovieCard from "../components/movie_card"
-import {useState} from "react"
+// javascript functions to call api 
+// good practice to have one file with all api calls (easy access) 
 
-function Home() {
-    // when state changes, component will re render
-    // name of state, function to change state, default value of state
-    const [searchQuery, setSearchQuery] = useState("");
-    const movies = [
-        {id: crypto.randomUUID(), title: "Harry Potter 1", release_date: "1998"},
-        {id: crypto.randomUUID(), title: "Harry Potter 2", release_date: "2000"},
-        {id: crypto.randomUUID(), title: "Harry Potter 3", release_date: "2002"},
-        {id: crypto.randomUUID(), title: "UP", release_date: "2002"},
-        {id: crypto.randomUUID(), title: "Walle", release_date: "2002"}
-    ]
+const API_KEY = "API KEY"
+const BASE_URL = "https://api.themoviedb.org/3"
 
-    const handleSearch = (e) => {
-        e.preventDefault() // prevents default behavior of reloading page
-        alert(searchQuery)
-        setSearchQuery("")
-    }
+// use api to search movies and display popular movies
 
-    return (
-        <div className="home">
-            <form onSubmit={handleSearch} className="search-form">
-                <input
-                    type="text"
-                    placeholder="Search for..."
-                    className="search-input"
-                    value={searchQuery}
-                    onChange={(e) => setSearchQuery(e.target.value)}
-                    // when you set value to a state, have to set on change to
-                    // when state changes by calling on change (setsearchquery function), whole component is rerendered
-                />
-                <button type="submit" className="search-button">Search</button>
-            </form>
-
-            <div className="movies-grid">
-                {movies.map((movie) => (
-                    // only renders movie list that starts with searchQuery
-                    movie.title.toLowerCase().startsWith(searchQuery) &&
-                    (<MovieCard movie={movie} key={movie.id}/>)
-                ))}
-            </div>
-        </div>
-    )
+// asynch means it will take a second to get result
+// code written here, call function from component, wait until get result, display result
+export const getPopularMovies = async () => {
+    const response = await fetch(`${BASE_URL}/movie/popular?api_key=${API_KEY}`);
+    const data = await response.json()
+    return data.results
 }
 
-export default Home
+
+export const searchMovies = async (query) => {
+    const response = await fetch(
+        `${BASE_URL}/search/movie?api_key=${API_KEY}&query=${encodeURIComponent(query)}`
+    );
+    const data = await response.json()
+    return data.results
+}
