@@ -1,10 +1,10 @@
 import { useState } from 'react'
 import {Routes, Route} from "react-router-dom"
+import { MovieProvider } from './contexts/MovieContext'
 
 import './css/App.css'
 import Home from "./pages/Home"
 import Favorite from "./pages/Favorites"
-import MovieCard from "./components/movie_card"
 // if you just export functionName you have to have function name in {}
 // if you export default functionName you can export without {}
 import NavBar from "./components/navbar"
@@ -15,7 +15,7 @@ function App() {
   // const [count, setCount] = useState(0)
 
   return (
-    <div>
+    <MovieProvider>
       <NavBar />
       <main className='main-content'>
         <Routes>
@@ -23,7 +23,7 @@ function App() {
           <Route path="/favorites" element={< Favorite />} />
         </Routes>
       </main>
-    </div>
+    </MovieProvider>
 
   )
 }
